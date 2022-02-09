@@ -4,11 +4,9 @@ fetch("http://localhost:3000/api/products")
 {console.log(res)
 res.forEach (produit=>
     {
-        const images=produit.imageUrl 
         let lien=document.createElement("a")
-        lien.href=produit.imageUrl
-        const items=document.getElementById("items")
-        items.appendChild(lien)
+        document.querySelector(".items").appendChild(lien)
+        lien.href=`product.html?id=${produit._id}`
         
         let productArticle=document.createElement("article") 
         lien.appendChild(productArticle)
