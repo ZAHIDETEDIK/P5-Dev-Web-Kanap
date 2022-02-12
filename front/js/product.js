@@ -40,8 +40,9 @@ const quantity = document.querySelector("#quantity").value
 if (color==null ||color==""|| quantity==null||quantity==0)
 { alert ("svp choisissez une couleur et une quantité")
 return
-} 
-  const imageUrl=document.querySelector("#img")
+}  
+  let alt=document.querySelector("altTxt")
+  let imageUrl=document.querySelector("img")
   let price=document.querySelector("#price").textContent
 //options des articles
 const option = { 
@@ -50,6 +51,7 @@ const option = {
   quantity:Number(quantity),
   price:price,
   img:imageUrl,
+  altTxt:alt,
   
  
 
