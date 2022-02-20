@@ -44,4 +44,27 @@ function makeImageDiv(item){
          div.appendChild(image)
         return div
 
+        // Création de la div "cart__item__content"
+function makeCartContent(item) {
+    const cardItemContent = document.createElement("div")
+    cardItemContent.classList.add("cart__item__content")
+
+    const description = makeDescription(item)
+    const settings = makeSettings(item)
+
+    cardItemContent.appendChild(description)
+    cardItemContent.appendChild(settings)
+    return cardItemContent
+}
+
+// Création du settings
+function makeSettings(item) {
+    const settings = document.createElement("div")
+    settings.classList.add("cart__item__content__settings")
+    
+    addQuantityToSettings(settings, item)
+    addDeleteToSettings(settings, item)
+    return settings
+}
+
 }
