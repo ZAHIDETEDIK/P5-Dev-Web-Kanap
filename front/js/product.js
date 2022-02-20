@@ -83,9 +83,11 @@ function addTocart(e) {
         produitLocalStorage.push(option);
         localStorage.setItem("produit", JSON.stringify(produitLocalStorage));
         console.table(produitLocalStorage);
-        window.location.href = "cart.html"
+        
 
     }
+    window.location.href = "cart.html"
+
 }
 
 
