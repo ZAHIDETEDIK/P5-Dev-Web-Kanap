@@ -93,8 +93,16 @@ fetch("http://localhost:3000/api/products")
     productItemContentSettingsDelete.appendChild(productItemDelete);
     productItemDelete.className = "deleteItem";
     productItemDelete.innerHTML = "Supprimer";
+
+ })
+ getTotal()
+
 })
-})
+    function getTotal(){
+        const totalPrice = document.querySelector("#totalPrice")
+        const total = cart.reduce((total, item) => total + item.price * item.quantity, 0)
+        totalPrice.textContent = total
+    }
 
 
 
