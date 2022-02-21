@@ -27,5 +27,4 @@ res.forEach (produit=>
         productArticle.appendChild(productDescription)
        
     })
-}
-)
+})

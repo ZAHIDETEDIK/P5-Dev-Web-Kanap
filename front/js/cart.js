@@ -108,7 +108,7 @@ function getTotals() {
         quantityTotal += elementsQuantity[i].valueAsNumber;
     }
 
-    let productTotalQuantity = document.getElementById("#totalQuantity");
+    let productTotalQuantity = document.getElementById("totalQuantity");
     productTotalQuantity.innerHTML = quantityTotal;
 
     // Récupération du prix total
@@ -116,8 +116,34 @@ function getTotals() {
 
     }
 
-    let productTotalPrice = document.getElementById("#totalPrice");
-    productTotalPrice.innerHTML = priceTotal;
+    let productTotalPrice = document.getElementById("totalPrice");
+    productTotalPrice.innerHTML=totalPrice;
+
+// Suppression d'un produit
+function productDelete() {
+        let buttonDelete = document.querySelectorAll(".deleteItem");
+        buttonDelete[a].addEventListener("click", (e) => {
+            e.preventDefault();
+
+            //Selection de l'element à modifier en fonction de son id ET sa couleur
+            let idDelete = productInLocalStorage[a].idProduit;
+            let colorDelete = productInLocalStorage[a].couleurProduit;
+
+
+            productInLocalStorage = productInLocalStorage.filter(element => element.idProduit !== idDelete || element.couleurProduit !== colorDelete)
+            // suppresion de la propriete price dans chaque objet
+            productInLocalStorage.map(p => delete p.price)
+            localStorage.setItem("products", JSON.stringify(productInLocalStorage));
+
+            if (productInLocalStorage.length === 0) {
+                localStorage.removeItem('products');
+            }
+
+
+            alert("Ce produit a bien été supprimé du panier");
+            location.reload();
+        })
+    }
 
 
 
