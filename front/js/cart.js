@@ -95,14 +95,37 @@ fetch("http://localhost:3000/api/products")
     productItemDelete.innerHTML = "Supprimer";
 
  })
- getTotal()
+ getTotals()
+ 
 
 })
-    function getTotal(){
-        const totalPrice = document.querySelector("#totalPrice")
-        const total = cart.reduce((total, item) => total + item.price * item.quantity, 0)
-        totalPrice.textContent = total
+function getTotals() {
+    // Récupération du total des quantités
+    let elementsQuantity = document.getElementsByClassName("itemQuantity");
+    let quantityTotal = 0;
+
+    for (let i = 0; i < elementsQuantity.length; ++i) {
+        quantityTotal += elementsQuantity[i].valueAsNumber;
     }
+
+    let productTotalQuantity = document.getElementById("#totalQuantity");
+    productTotalQuantity.innerHTML = quantityTotal;
+
+    // Récupération du prix total
+    let priceTotal = 0;
+
+    }
+
+    let productTotalPrice = document.getElementById("#totalPrice");
+    productTotalPrice.innerHTML = priceTotal;
+
+
+
+
+
+    
+    
+
 
 
 
