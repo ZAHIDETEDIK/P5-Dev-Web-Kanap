@@ -1,70 +1,51 @@
 const cart = []
+
+
 recupItem()
-
-
+ 
 
 // Récupération des données du localstorage
 function recupItem() {
-    const numberOfItems = localStorage.length
+   const numberOfItems = localStorage.length
     for (let i = 0; i < numberOfItems; i++) {
         const item = localStorage.getItem(localStorage.key(i)) || ""
         const itemObject = JSON.parse(item)
         cart.push(itemObject)
     }
 }
-// Affichage des éléments du Panier
-function displayItem(item) {
 
-    const article=makeArticle(item)
-    displayArticle
-    const div = makeImageDiv(item)
-    article.appendChild(div)
-}
-    function displayArticle(article){
+cart .forEach((produit,i) =>{ 
 
-        document.querySelector("#cart__items").appendChild(article)
+    let mesArticle=document.createElement("article");
+    document.querySelector("#cart__items").appendChild(mesArticle);
+    mesArticle.className='cart__item';
+    mesArticle.setAttribute('data-id',produit._id);
 
-    }
+    let divImg=document.createElement("div");
+    mesArticle.appendChild(divImg);
+    divImg.className="cart__item__img";
 
-    function makeArticle(item){
+    let mesImages=document.createElement("img");
+    divImg.appendChild(mesImages);
+    mesImages.src=produit.imageUrl;
+    mesImages.aLT=produit.altTxt;
 
-        const article=document.createElement("article")
-        article. classlist .add ("card__item")
-        article.dataset.id=item.id
-        article.dataset.color=item.color
-    }
+    let cartItemcontent=document.createElement("div");
+    mesArticle.appendChild(cartItemcontent);
+    cartItemcontent.className="cart__item__content";
 
-function makeImageDiv(item){
+    let cartItemcontentDescription=document.createElement("div");
+    cartItemcontent.appendChild(cartItemcontentDescription);
+    cartItemcontentDescription.className="cart__item__content__description";
 
-         const div=document.createElement("div")
-         div .classlist.add("cart__item__img")
-         const image= document.createElement("img")
-         image.src=item.imageUrl
-         image.alt=item.altTxt
-         div.appendChild(image)
-        return div
-
-        // Création de la div "cart__item__content"
-function makeCartContent(item) {
-    const cardItemContent = document.createElement("div")
-    cardItemContent.classList.add("cart__item__content")
-
-    const description = makeDescription(item)
-    const settings = makeSettings(item)
-
-    cardItemContent.appendChild(description)
-    cardItemContent.appendChild(settings)
-    return cardItemContent
-}
-
-// Création du settings
-function makeSettings(item) {
-    const settings = document.createElement("div")
-    settings.classList.add("cart__item__content__settings")
+    let productTitle=document.createElement('h2')
+    cartItemcontentDescription.appendChild(productTitle)
+    productTitle.innerHTML=produit.name;
     
-    addQuantityToSettings(settings, item)
-    addDeleteToSettings(settings, item)
-    return settings
-}
 
-}
+})
+
+
+
+
+
