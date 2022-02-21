@@ -16,6 +16,7 @@ function recupItem() {
 fetch("http://localhost:3000/api/products")
 .then ((res)=>res.json())
 .then((data)=>{ 
+ 
 
  cart.forEach((product,i) =>{ 
 
@@ -53,9 +54,48 @@ fetch("http://localhost:3000/api/products")
     productTitle.appendChild(productPrice);
     productPrice.innerHTML=product.price + " €";
 
+    // Insertion de l'élément "div"
+    let productItemSettings = document.createElement("div");
+    mesArticle.appendChild(productItemSettings);
+    productItemSettings.className = "cart__item__content__settings";
 
+    // Insertion de l'élément "div"
+    let productItemSettingsQuantity = document.createElement("div");
+    productItemSettings.appendChild(productItemSettingsQuantity);
+    productItemSettingsQuantity.className = "cart__item__content__settings__quantity";
+
+    // Insertion de "Qté : "
+    let productQte = document.createElement("p");
+    productItemSettingsQuantity.appendChild(productQte);
+    console.log(product)
+    productQte.innerHTML = "Qté : ";
+
+
+    // Insertion de la quantité
+    let productInsertionQuantity = document.createElement("input");
+    productItemSettingsQuantity.appendChild(productInsertionQuantity);
+    productInsertionQuantity.className = "itemQuantity";
+    productInsertionQuantity.value = product.quantiteProduit;
+    productInsertionQuantity.setAttribute("type", "number");
+    productInsertionQuantity.setAttribute("name", "itemQuantity-" + product.idProduit);
+    productInsertionQuantity.setAttribute("min", "1");
+    productInsertionQuantity.setAttribute("max", "100");
+
+
+    // Insertion de l'élément "div"
+    let productItemContentSettingsDelete = document.createElement("div");
+    mesArticle.appendChild(productItemContentSettingsDelete);
+    productItemContentSettingsDelete.className = "cart__item__content__settings__delete";
+
+
+    // Insertion de "p" supprimer
+    let productItemDelete = document.createElement("p");
+    productItemContentSettingsDelete.appendChild(productItemDelete);
+    productItemDelete.className = "deleteItem";
+    productItemDelete.innerHTML = "Supprimer";
 })
 })
+
 
 
 
