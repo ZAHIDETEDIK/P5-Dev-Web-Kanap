@@ -282,7 +282,19 @@ function modifQuantite() {
             cityErrorMsg.innerHTML = 'veuillez renseigner ce champ'
         } 
 
-    }
+    };
+
+    //validation de l'adresse Email
+    const validEmail = function (inputEmail) {
+        let emailErrorMsg = inputEmail.nextElementSibling;
+
+        if (emailRegExp.test(inputEmail.value)) {
+            emailErrorMsg.innerHTML = '';
+        } else {
+            emailErrorMsg.innerHTML = 'Veuillez renseigner ce champ.';
+        }
+    };
+form();
 
     
 
