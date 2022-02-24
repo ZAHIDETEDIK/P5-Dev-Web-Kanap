@@ -20,7 +20,7 @@ fetch("http://localhost:3000/api/products/" + id)
 
 /* fonction affichant l'image,le titre , le
 prix, la description et la couleur du
-produit oprovenant du Local Storage
+produit provenant du Local Storage
 correspondant sur la page
 product.html(page description du PRODUIT */
 function getProducts() {
@@ -69,7 +69,7 @@ function addToCart(produit) {
 
         let productInLocalStorage = JSON.parse(localStorage.getItem('products'));
 
-        /*Un message de notification apparaitra lors de l’ajout d’un produit
+        /*Un message de notification  lors de l’ajout d’un produit
         au panier */
         const popup = () => {
             if (window.confirm(`Votre commande de ${choixQuantite} ${produit.name} ${choixCouleur} est ajoutée au panier

@@ -212,7 +212,7 @@ function modifQuantite() {
     }
 }
     
-    
+
     let form = document.querySelector(".cart__order__form");
 
     // Ecoute de la modification du prénom
@@ -249,6 +249,42 @@ function modifQuantite() {
             firstNameErrorMsg.innerHTML = 'Veuillez renseigner ce champ.';
         }
     };
+    // validation du nom
+    const validLastName = function (inputLastName){
+      let   lastNameErrorMsg=inputLastName.nextElementSibling;
+
+      if (letterRegExp.test(inputLastName.value)){
+            lastNameErrorMsg.innerHTML ='';
+      }else {
+          lastNameErrorMsg.innerHTML ='Veuillez renseigner ce champ.';
+      }
+      
+    };
+
+    // validation de l'adresse
+    const validAddress = function (inputAdress){
+        let addressErrorMsg=inputAdress.nextElementSibling;
+
+        if (adressRegExp.test(inputAdress.value)){
+            addressErrorMsg.innerHTML='';
+
+        } else {
+            addressErrorMsg.innerHTML = 'veuillez renseigner ce champ.'
+        }
+    };
+    // validation de la ville 
+    const validCity = function (inputCity){
+        let cityErrorMsg = inputCity.nextElementSibling;
+
+        if (letterRegExp.test(inputCity.value)){
+            cityErrorMsg.innerHTML=''
+        } else{
+            cityErrorMsg.innerHTML = 'veuillez renseigner ce champ'
+        } 
+
+    }
+
+    
 
 
 
