@@ -340,14 +340,16 @@ function vaFormulaire() {
                     "Content-Type": "application/json"
                 }
             };
-            fetch("http://localgost:3000/api/products/order,options")
+            fetch("http://localhost:3000/api/products/order,options")
             .then (response=>response.json())
-        })  .then (data => {
-            localStorage.setItem ('orderID,data.orderId');
-            document.location.href ='confirmation.htlm';
+            .then (data => {
+            localStorage.setItem('orderId',data.orderId);
+            document.location.href ='confirmation.html?id='+ data.orderId;
         });
     
-}}
+})
+    }
+}
 vaFormulaire()
 
 
