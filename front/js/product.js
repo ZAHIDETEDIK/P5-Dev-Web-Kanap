@@ -1,6 +1,5 @@
 const params = new URLSearchParams(document.location.search);
 const id = params.get("id");
-console.log(params);
 const colorPicked = document.querySelector("#colors");
 const quantityPicked = document.querySelector("#quantity");
 let product = null;
@@ -15,7 +14,6 @@ fetch("http://localhost:3000/api/products/" + id)
     .then((objetProduit) => {
         product = objetProduit
         getProducts();
-        console.log(objetProduit);
     });
 
 /* fonction affichant l'image,le titre , le
@@ -44,7 +42,6 @@ function getProducts() {
     }
 
 
-    console.log("affichage effectué");
 }
 
 
