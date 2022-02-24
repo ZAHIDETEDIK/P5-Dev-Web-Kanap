@@ -125,7 +125,7 @@ function dansPanier() {
             productItemDelete.className = "deleteItem";
             productItemDelete.innerHTML = "Supprimer";
         })
-       
+
     }
 }
 
@@ -141,19 +141,19 @@ function getTotals() {
 
     let productTotalQuantity = document.getElementById("totalQuantity");
     productTotalQuantity.innerHTML = quantityTotal;
-    
+
 
     // Récupération du prix total
     let priceTotal = 0;
 
     for (let i = 0; i < elementsQuantity.length; ++i) {
         priceTotal += (elementsQuantity[i].valueAsNumber * productInLocalStorage[i].price);
-        
+
     }
 
     let productTotalPrice = document.getElementById("totalPrice");
     productTotalPrice.innerHTML = priceTotal;
-    
+
 
 }
 
@@ -211,9 +211,15 @@ function modifQuantite() {
         })
     }
 }
-    
+function vaFormulaire() {
+    //Regex
 
     let form = document.querySelector(".cart__order__form");
+
+    let emailRegExp = new RegExp('^[a-zA-Z0-9.-_]+[@]{1}[a-zA-Z0-9.-_]+[.]{1}[a-z]{2,10}$');
+    let letterRegExp = new RegExp("^[a-zA-Z ,.'-]+$");
+    let addressRegExp = new RegExp("^[0-9]{1,3}(?:(?:[,. ]){1}[-a-zA-Zàâäéèêëïîôöùûüç]+)+");
+
 
     // Ecoute de la modification du prénom
     form.firstName.addEventListener('change', function () {
@@ -239,8 +245,8 @@ function modifQuantite() {
     form.email.addEventListener('change', function () {
         validEmail(this);
     });
-     //validation du Prénom
-     const validFirstName = function (inputFirstName) {
+    //validation du Prénom
+    const validFirstName = function (inputFirstName) {
         let firstNameErrorMsg = inputFirstName.nextElementSibling;
 
         if (letterRegExp.test(inputFirstName.value)) {
@@ -250,37 +256,37 @@ function modifQuantite() {
         }
     };
     // validation du nom
-    const validLastName = function (inputLastName){
-      let   lastNameErrorMsg=inputLastName.nextElementSibling;
+    const validLastName = function (inputLastName) {
+        let lastNameErrorMsg = inputLastName.nextElementSibling;
 
-      if (letterRegExp.test(inputLastName.value)){
-            lastNameErrorMsg.innerHTML ='';
-      }else {
-          lastNameErrorMsg.innerHTML ='Veuillez renseigner ce champ.';
-      }
-      
+        if (letterRegExp.test(inputLastName.value)) {
+            lastNameErrorMsg.innerHTML = '';
+        } else {
+            lastNameErrorMsg.innerHTML = 'Veuillez renseigner ce champ.';
+        }
+
     };
 
     // validation de l'adresse
-    const validAddress = function (inputAdress){
-        let addressErrorMsg=inputAdress.nextElementSibling;
+    const validAddress = function (inputAdress) {
+        let addressErrorMsg = inputAdress.nextElementSibling;
 
-        if (adressRegExp.test(inputAdress.value)){
-            addressErrorMsg.innerHTML='';
+        if (addressRegExp.test(inputAdress.value)) {
+            addressErrorMsg.innerHTML = '';
 
         } else {
             addressErrorMsg.innerHTML = 'veuillez renseigner ce champ.'
         }
     };
     // validation de la ville 
-    const validCity = function (inputCity){
+    const validCity = function (inputCity) {
         let cityErrorMsg = inputCity.nextElementSibling;
 
-        if (letterRegExp.test(inputCity.value)){
-            cityErrorMsg.innerHTML=''
-        } else{
+        if (letterRegExp.test(inputCity.value)) {
+            cityErrorMsg.innerHTML = ''
+        } else {
             cityErrorMsg.innerHTML = 'veuillez renseigner ce champ'
-        } 
+        }
 
     };
 
@@ -294,11 +300,49 @@ function modifQuantite() {
             emailErrorMsg.innerHTML = 'Veuillez renseigner ce champ.';
         }
     };
-form();
+    formulaire();
+    // envoi des infos client
+    function formulaire() {
+        const order = document.getElementById('order');
+        order.addEventListener('click', (event) => {
+            event.preventDefault();
 
-    
+            // recuperation des données du formulaire
 
+            let inputFirstName = document.getElementById('firstName').value;
+            let inputLastName = document.getElementById('lastName').value;
+            let inputAddress = document.getElementById('address').value;
+            let inputCity = document.getElementById('city').value;
+            let inputEmail = document.getElementById('email').value;
 
+            //construction array d'id depuis localStorage
+            let id_Product = [];
+            for (let i = 0; i < productInLocalStorage.length; i++) {
+                id_Product.push(productInLocalStorage[i].idProduit);
+            }
+
+            if (productInLocalStorage.length !== 0 && emailRegExp.test(inputEmail.value) && letterRegExp.test(inputFirstName.value) && letterRegExp.test(inputLastName.value) && addressRegExp.test(inputAddress.value) && letterRegExp.test(inputCity.value)) {
+                const contact = {
+
+                    firstName: inputFirstName.value,
+                    lastName: inputLastName.value,
+                    address: inputAddress.value,
+                    city: inputCity.value,
+                    email: inputEmail.value,
+                }
+                products: id_Product
+            }
+            const options = {
+                method: 'POST',
+                body: JSON.stringify(order),
+                headers: {
+                    'Accept': 'application/json',
+                    "Content-Type": "application/json"
+                }
+            }
+        })
+    }
+}
 
 
 
