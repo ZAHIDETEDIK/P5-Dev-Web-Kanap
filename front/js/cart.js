@@ -98,7 +98,6 @@ function dansPanier() {
             // Insertion de "Qté : "
             let productQte = document.createElement("p");
             productItemSettingsQuantity.appendChild(productQte);
-            console.log(produit)
             productQte.innerHTML = "Qté : ";
 
 
@@ -171,7 +170,7 @@ function productSuprimme() {
 
 
             productInLocalStorage = productInLocalStorage.filter(element => element.idProduit !== idDelete || element.couleurProduit !== colorDelete)
-            // suppresion de la propriete price dans chaue objet
+            // suppresion de la propriete price 
             productInLocalStorage.map(p => delete p.price)
             localStorage.setItem("products", JSON.stringify(productInLocalStorage));
 

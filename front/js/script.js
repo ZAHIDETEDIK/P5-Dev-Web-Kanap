@@ -1,8 +1,10 @@
+
 fetch("http://localhost:3000/api/products")
 .then((response) => response.json())
 .then((res) => 
 {console.log(res)
 res.forEach (produit=>
+
     {
         let lien=document.createElement("a")
         document.querySelector(".items").appendChild(lien)

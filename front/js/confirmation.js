@@ -1,4 +1,7 @@
-const id = new URL(window.location.href).searchParams.get("id");
-const orderId=document.getElementById('orderId');
-orderId.innerHTML = id ;
-localStorage.clear();
+const params = new URLSearchParams(document.location.search);
+const idOrder = params.get("orderId");
+console.log(orderId)
+let idElement = document.getElementById("orderId");
+idElement .innerText = orderId;
+
+
