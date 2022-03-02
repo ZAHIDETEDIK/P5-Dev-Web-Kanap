@@ -320,32 +320,33 @@ function vaFormulaire() {
                 id_Product.push(productInLocalStorage[i].idProduit);
             }
 
-            if (productInLocalStorage.length !== 0 && emailRegExp.test(inputEmail.value) && letterRegExp.test(inputFirstName.value) && letterRegExp.test(inputLastName.value) && addressRegExp.test(inputAddress.value) && letterRegExp.test(inputCity.value)) {
-                const contact = {
+  //          if (productInLocalStorage.length !== 0 && emailRegExp.test(inputEmail.value) && letterRegExp.test(inputFirstName.value) && letterRegExp.test(inputLastName.value) && addressRegExp.test(inputAddress.value) && letterRegExp.test(inputCity.value)) {
+                const commande={
+                    contact: {
 
-                    firstName: inputFirstName.value,
-                    lastName: inputLastName.value,
-                    address: inputAddress.value,
-                    city: inputCity.value,
-                    email: inputEmail.value,
+                        firstName: inputFirstName,
+                        lastName: inputLastName,
+                        address: inputAddress,
+                        city: inputCity,
+                        email: inputEmail,
+                    },
+                    products: id_Product
                 }
-                products: id_Product
-            }
             const options = {
                 method: 'POST',
-                body: JSON.stringify(order),
+                body: JSON.stringify(commande),
                 headers: {
                     'Accept': 'application/json',
                     "Content-Type": "application/json"
                 }
             };
-            fetch("http://localhost:3000/api/products/order,options")
-            .then (response=>response.json())
+            fetch("http://localhost:3000/api/products/order",options)
+            .then (response=> response.json())
             .then (data => {
-            localStorage.setItem('orderId',data.orderId);
             document.location.href ='confirmation.html?id='+ data.orderId;
+            console.log(data)
         });
-    
+  //  } 
 })
     }
 }

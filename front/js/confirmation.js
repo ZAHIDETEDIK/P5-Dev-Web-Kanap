@@ -1,7 +1,11 @@
 const params = new URLSearchParams(document.location.search);
-const idOrder = params.get("orderId");
+const idOrder = params.get("id");
 console.log(orderId)
-let idElement = document.getElementById("orderId");
-idElement .innerText = orderId;
+console.log (idOrder)
+
+let idElement = document.querySelector("#orderId");
+idElement.innerHTML = idOrder;
+localStorage.clear();
+
 
 

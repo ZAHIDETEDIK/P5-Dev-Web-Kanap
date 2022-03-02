@@ -1,7 +1,7 @@
 const params = new URLSearchParams(document.location.search);
 const id = params.get("id");
-const colorPicked = document.querySelector("#colors");
-const quantityPicked = document.querySelector("#quantity");
+const color = document.querySelector("#colors");
+const quantity = document.querySelector("#quantity");
 let product = null;
 const button_sendToCart = document.querySelector("#addToCart");
 
@@ -49,11 +49,10 @@ function getProducts() {
 total dans le panier et le prix total. On ajoute le produit dans le local storage ou on incrémente sa quantité */
 function addToCart(produit) {
 
-    if (quantityPicked.value > 0 && quantityPicked.value <= 100 && quantityPicked.value != 0) {
+    if (quantity.value > 0 && quantity.value <= 100 && quantity.value != 0) {
 
-        let choixQuantite = quantityPicked.value;
-        let choixCouleur = colors.value;
-
+        let choixQuantite = quantity.value;
+        let choixCouleur = color.value; 
         let optionsProduit = {
             idProduit: produit._id,
             couleurProduit: choixCouleur,
@@ -63,8 +62,10 @@ function addToCart(produit) {
             imageUrl: produit.imageUrl,
             altTxt: produit.altTxt
         };
-
+     
+    
         let productInLocalStorage = JSON.parse(localStorage.getItem('products'));
+        
 
         /*Un message de notification  lors de l’ajout d’un produit
         au panier */
@@ -72,8 +73,10 @@ function addToCart(produit) {
             if (window.confirm(`Votre commande de ${choixQuantite} ${produit.name} ${choixCouleur} est ajoutée au panier
     Pour consulter votre panier, cliquez sur OK`)) {
                 window.location.href = "cart.html";
-            }
-        }
+    
+    }
+}
+
         //Importation dans le local storage
         //Si le panier comporte déjà au moins 1 article
         if (productInLocalStorage) {
@@ -86,7 +89,7 @@ function addToCart(produit) {
                     parseInt(optionsProduit.quantiteProduit) + parseInt(findResult.quantiteProduit);
                 findResult.quantiteProduit = newQuantite;
                 localStorage.setItem("products", JSON.stringify(productInLocalStorage));
-                console.log(productInLocalStorage);
+            
                 popup();
                 //Si le produit commandé n'est pas dans le panier
             } else {
