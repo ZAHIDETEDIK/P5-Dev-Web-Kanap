@@ -1,5 +1,5 @@
 let productInLocalStorage = JSON.parse(localStorage.getItem('products'));
-console.log(productInLocalStorage);
+
 
 
 // Récupération des articles de l'API et des données de l'API dans le DOM
@@ -131,7 +131,6 @@ function dansPanier() {
 function getTotals() {
     // Récupération du total des quantités
     let elementsQuantity = document.getElementsByClassName("itemQuantity");
-    console.log(elementsQuantity);
     let quantityTotal = 0;
 
     for (let i = 0; i < elementsQuantity.length; ++i) {
@@ -201,7 +200,7 @@ function modifQuantite() {
 
                 productInLocalStorage[c].quantiteProduit
                 productInLocalStorage[c].quantiteProduit = quantiteModifValue;
-                // suppresion de la propriete price dans chaue objet
+                // suppresion de la propriete price dans chaque objet
                 productInLocalStorage.map(p => delete p.price)
 
                 localStorage.setItem("products", JSON.stringify(productInLocalStorage));
@@ -303,53 +302,54 @@ function vaFormulaire() {
     // envoi des infos client
     function formulaire() {
         const order = document.getElementById('order');
-        order.addEventListener('click', (event) => {
-            event.preventDefault();
-
-            // recuperation des données du formulaire
-
-            let inputFirstName = document.getElementById('firstName').value;
-            let inputLastName = document.getElementById('lastName').value;
-            let inputAddress = document.getElementById('address').value;
-            let inputCity = document.getElementById('city').value;
-            let inputEmail = document.getElementById('email').value;
-
-            //construction array d'id depuis localStorage
-            let id_Product = [];
-            for (let i = 0; i < productInLocalStorage.length; i++) {
-                id_Product.push(productInLocalStorage[i].idProduit);
-            }
-
-  //          if (productInLocalStorage.length !== 0 && emailRegExp.test(inputEmail.value) && letterRegExp.test(inputFirstName.value) && letterRegExp.test(inputLastName.value) && addressRegExp.test(inputAddress.value) && letterRegExp.test(inputCity.value)) {
-                const commande={
-                    contact: {
-
-                        firstName: inputFirstName,
-                        lastName: inputLastName,
-                        address: inputAddress,
-                        city: inputCity,
-                        email: inputEmail,
-                    },
-                    products: id_Product
-                }
-            const options = {
-                method: 'POST',
-                body: JSON.stringify(commande),
-                headers: {
-                    'Accept': 'application/json',
-                    "Content-Type": "application/json"
-                }
-            };
-            fetch("http://localhost:3000/api/products/order",options)
-            .then (response=> response.json())
-            .then (data => {
-            document.location.href ='confirmation.html?id='+ data.orderId;
-            console.log(data)
-        });
-  //  } 
-})
+        order.addEventListener('click', orderProducts);
+        
     }
 }
+// envoi du formulaire
+function orderProducts(event)  {
+    event.preventDefault();
+
+    // recuperation des données du formulaire
+
+    let inputFirstName = document.getElementById('firstName').value;
+    let inputLastName = document.getElementById('lastName').value;
+    let inputAddress = document.getElementById('address').value;
+    let inputCity = document.getElementById('city').value;
+    let inputEmail = document.getElementById('email').value;
+
+    //construction array d'id depuis localStorage
+    let id_Product = [];
+    for (let i = 0; i < productInLocalStorage.length; i++) {
+        id_Product.push(productInLocalStorage[i].idProduit);
+    }
+
+    //          if (productInLocalStorage.length !== 0 && emailRegExp.test(inputEmail.value) && letterRegExp.test(inputFirstName.value) && letterRegExp.test(inputLastName.value) && addressRegExp.test(inputAddress.value) && letterRegExp.test(inputCity.value)) {
+    const commande = {
+        contact: {
+
+            firstName: inputFirstName,
+            lastName: inputLastName,
+            address: inputAddress,
+            city: inputCity,
+            email: inputEmail,
+        },
+        products: id_Product
+    }
+    const options = {
+        method: 'POST',
+        body: JSON.stringify(commande),
+        headers: {
+            'Accept': 'application/json',
+            "Content-Type": "application/json"
+        }
+    };
+    fetch("http://localhost:3000/api/products/order", options)
+        .then(response => response.json())
+        .then(data => {
+            document.location.href = 'confirmation.html?id=' + data.orderId;
+        });
+    }
 vaFormulaire()
 
 

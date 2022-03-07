@@ -13,7 +13,7 @@ fetch("http://localhost:3000/api/products/" + id)
     .then((res) => res.json())
     .then((objetProduit) => {
         product = objetProduit
-        getProducts();
+        buildProductHtml();
     });
 
 /* fonction affichant l'image,le titre , le
@@ -21,7 +21,7 @@ prix, la description et la couleur du
 produit provenant du Local Storage
 correspondant sur la page
 product.html(page description du PRODUIT */
-function getProducts() {
+function buildProductHtml() {
     let imageAlt = document.querySelector("article div.item__img");
     let titre = document.querySelector("#title");
     let prix = document.querySelector("#price");
@@ -52,7 +52,7 @@ function addToCart(produit) {
     if (quantity.value > 0 && quantity.value <= 100 && quantity.value != 0) {
 
         let choixQuantite = quantity.value;
-        let choixCouleur = color.value; 
+        let choixCouleur = color.value;
         let optionsProduit = {
             idProduit: produit._id,
             couleurProduit: choixCouleur,
@@ -62,10 +62,10 @@ function addToCart(produit) {
             imageUrl: produit.imageUrl,
             altTxt: produit.altTxt
         };
-     
-    
+
+
         let productInLocalStorage = JSON.parse(localStorage.getItem('products'));
-        
+
 
         /*Un message de notification  lors de l’ajout d’un produit
         au panier */
@@ -73,9 +73,9 @@ function addToCart(produit) {
             if (window.confirm(`Votre commande de ${choixQuantite} ${produit.name} ${choixCouleur} est ajoutée au panier
     Pour consulter votre panier, cliquez sur OK`)) {
                 window.location.href = "cart.html";
-    
-    }
-}
+
+            }
+        }
 
         //Importation dans le local storage
         //Si le panier comporte déjà au moins 1 article
@@ -89,13 +89,12 @@ function addToCart(produit) {
                     parseInt(optionsProduit.quantiteProduit) + parseInt(findResult.quantiteProduit);
                 findResult.quantiteProduit = newQuantite;
                 localStorage.setItem("products", JSON.stringify(productInLocalStorage));
-            
+
                 popup();
                 //Si le produit commandé n'est pas dans le panier
             } else {
                 productInLocalStorage.push(optionsProduit);
                 localStorage.setItem("products", JSON.stringify(productInLocalStorage));
-                console.log(productInLocalStorage);
                 popup();
             }
             //Si le panier est vide 
